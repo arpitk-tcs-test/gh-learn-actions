@@ -6,7 +6,7 @@ on:
     paths:
       - 'src/main/resources/application.yaml'
 jobs:
-  test:
+  Job1:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -16,3 +16,16 @@ jobs:
         with:
             name: yaml
             path: src/main/resources/application.yaml
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: yaml
+  Job2:
+    name: Upload yaml to another repo
+    needs: Job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the release artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: yaml
