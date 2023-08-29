@@ -1,8 +1,10 @@
 name: CI
 on:
-push:
-paths:
-  - 'src/main/resources/application.yaml'
+  push:
+    branches:
+      - dev
+    paths:
+      - 'src/main/resources/application.yaml'
 jobs:
   test:
     runs-on: ubuntu-latest
