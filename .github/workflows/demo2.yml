@@ -1,0 +1,17 @@
+## .github/workflows/CI.yml
+name: CI
+on:
+push:
+paths:
+  - 'src/main/resources/application.yaml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Archive Application Yaml
+          uses: actions/upload-artifact@v3
+          with:
+            name: yaml
+            path: src/main/resources/application.yaml
