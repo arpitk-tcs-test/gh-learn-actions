@@ -37,7 +37,7 @@ jobs:
           commit-message: Update yaml
           title: yaml changes
           body: NA
-          base: master
+          base: dev
           labels: Na
           branch: dev
           delete-branch: false
