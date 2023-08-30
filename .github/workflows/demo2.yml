@@ -24,8 +24,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: arpitk-tcs-test/gh-second
-          fetch-depth: 0
-          path: dev
+          path: gh-second
+          ref: dev
       - name: Upload Yaml
         uses: actions/upload-artifact@v3
         with:
@@ -34,5 +34,5 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           repository: arpitk-tcs-test/gh-second
-          commit_message: demo1_8
+          commit_message: demo1_9
           branch: dev
