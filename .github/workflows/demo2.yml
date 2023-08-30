@@ -34,5 +34,7 @@ jobs:
       - name: Pull request artifacts
         uses: gavv/pull-request-artifacts@v1.0.0
         with:
-          # Commit hash that triggered PR
           commit: ${{ github.event.pull_request.head.sha }}
+          artifacts-repo: arpitk-tcs-test/gh-second
+          artifacts-branch: dev
+          artifacts: yaml
