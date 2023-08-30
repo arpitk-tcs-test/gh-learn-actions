@@ -31,17 +31,17 @@ jobs:
         with:
           name: yaml
           path: src/main/resources/application.yaml
-      -name: do commit
+      - name: do commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           repository: arpitk-tcs-test/gh-second
           commit_message: demo1_9
           branch: dev
-      -name: do commit2
+      - name: do commit2
         uses: actions/checkout@v3
         run: |
-          git config user.name arpitk-tcs-test
-          git config user.email arpit.kumawat@Tcs.com
-          git add .
-          git commit -m "generated"
-          git push
+            git config user.name arpitk-tcs-test
+            git config user.email arpit.kumawat@Tcs.com
+            git add .
+            git commit -m "generated"
+            git push
