@@ -25,7 +25,7 @@ jobs:
         with:
           repository: arpitk-tcs-test/gh-second
           path: gh-second
-          ref: dev
+          ref: master
       - name: Upload Yaml
         uses: actions/upload-artifact@v3
         with:
