@@ -16,16 +16,26 @@ jobs:
         with:
             name: yaml
             path: src/main/resources/application.yaml
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: yaml
   Job2:
-    name: Upload yaml to another repo
+    name: Download yaml
     needs: Job1
     runs-on: ubuntu-latest
     steps:
       - name: Download the release artifact
         uses: actions/download-artifact@v2
+        with:
+          name: yaml
+  Job3:
+    name: Chekout to another repo with main branch
+    needs: Job2
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Upload Artifact to if Dev exist
+        uses: actions/checkout@v3
+        with:
+          repository: arpitk-tcs-test/gh-second
+          path: dev
+      - name: Upload Yaml
+        uses: actions/upload-artifact@v3
         with:
           name: yaml
