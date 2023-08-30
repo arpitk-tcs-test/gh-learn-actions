@@ -31,17 +31,26 @@ jobs:
         with:
           name: yaml
           path: src/main/resources/application.yaml
+  Job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Upload Artifact to if Dev exist
+        uses: actions/checkout@v3
+        with:
+          repository: arpitk-tcs-test/gh-second
+          path: gh-second
+          ref: dev
       - name: Create pull request
         uses: paygoc6/action-pull-request-another-repo@v1.0.1
         env:
-            API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
+          API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         with:
-            source_folder: 'src/main/resources/application.yaml'
-            destination_repo: 'arpitk-tcs-test/gh-second'
-            destination_folder: 'resources'
-            destination_base_branch: 'master'
-            destination_head_branch: 'dev'
-            user_email: 'arpit.kumawat@tcs.com'
-            user_name: 'arpitk-tcs-test'
-            pull_request_reviewers: 'reviewers'
-            pr_title: 'feat: the pr title'
+          source_folder: 'src/main/resources/application.yaml'
+          destination_repo: 'arpitk-tcs-test/gh-second'
+          destination_folder: 'resources'
+          destination_base_branch: 'master'
+          destination_head_branch: 'dev'
+          user_email: 'arpit.kumawat@tcs.com'
+          user_name: 'arpitk-tcs-test'
+          pull_request_reviewers: 'reviewers'
+          pr_title: 'feat: the pr title'
