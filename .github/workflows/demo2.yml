@@ -31,8 +31,9 @@ jobs:
         with:
           name: yaml
           path: src/main/resources/application.yaml
-      - name: Get code 2
-        uses: actions/checkout@v3
+      - name: Git pull
+          run: |
+            git pull origin master
       - name: Create pull request
         uses: paygoc6/action-pull-request-another-repo@v1.0.1
         env:
