@@ -36,5 +36,19 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           source_branch: dev
-          target_branch: dev
+          target_branch: arpitk-tcs-test/gh-second
           title: My pull request
+      - name: Create pull request
+        uses: paygoc6/action-pull-request-another-repo@v1.0.1
+        env:
+            API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
+        with:
+            source_folder: 'src/main/resources/application.yaml'
+            destination_repo: 'arpitk-tcs-test/gh-second'
+            destination_folder: 'resources'
+            destination_base_branch: 'dev'
+            destination_head_branch: 'dev'
+            user_email: 'arpit.kumawat@tcs.com'
+            user_name: 'arpitk-tcs-test'
+            pull_request_reviewers: 'reviewers'
+            pr_title: 'feat: the pr title'
