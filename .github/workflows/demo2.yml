@@ -32,9 +32,9 @@ jobs:
           name: yaml
           path: src/main/resources/application.yaml
       - name: Run the Action
-          uses: devops-infra/action-pull-request@v0.5.5
-          with:
-            github_token: ${{ secrets.TOKEN }}
-            source_branch: dev
-            target_branch: dev
-            title: My pull request
+        uses: devops-infra/action-pull-request@v0.5.5
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          source_branch: dev
+          target_branch: dev
+          title: My pull request
