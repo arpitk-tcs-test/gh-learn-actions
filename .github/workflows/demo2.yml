@@ -26,15 +26,7 @@ jobs:
           repository: arpitk-tcs-test/gh-second
           path: gh-second
           ref: dev
-      - name: Upload Yaml
-        uses: actions/upload-artifact@v3
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         with:
-          name: yaml
-          path: src/main/resources/application.yaml
-      - name: Pull request artifacts
-        uses: gavv/pull-request-artifacts@v1.0.0
-        with:
-          commit: ${{ github.event.pull_request.head.sha }}
-          artifacts-repo: arpitk-tcs-test/gh-second
-          artifacts-branch: dev
-          artifacts: yaml
+          branch: dev
