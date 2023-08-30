@@ -33,5 +33,6 @@ jobs:
           path: src/main/resources/application.yaml
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Apply php-cs-fixer changes
+          repository: arpitk-tcs-test/gh-second
+          commit_message: demo1_8
           branch: dev
