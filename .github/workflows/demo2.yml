@@ -26,11 +26,11 @@ jobs:
           repository: arpitk-tcs-test/gh-second
           path: gh-second
           ref: dev
-#      - name: Upload Yaml
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: yaml
-#          path: src/main/resources/application.yaml
+      - name: Upload Yaml
+        uses: actions/upload-artifact@v3
+        with:
+          name: yaml
+          path: src/main/resources/application.yaml
       - name: Create pull request
         uses: paygoc6/action-pull-request-another-repo@v1.0.1
         env:
