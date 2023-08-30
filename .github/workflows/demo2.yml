@@ -25,7 +25,7 @@ jobs:
         with:
           repository: arpitk-tcs-test/gh-second
           path: gh-second
-          ref: master
+          ref: dev
       - name: Upload Yaml
         uses: actions/upload-artifact@v3
         with:
@@ -40,7 +40,7 @@ jobs:
             destination_repo: 'arpitk-tcs-test/gh-second'
             destination_folder: 'resources'
             destination_base_branch: 'master'
-            destination_head_branch: 'master'
+            destination_head_branch: 'dev'
             user_email: 'arpit.kumawat@tcs.com'
             user_name: 'arpitk-tcs-test'
             pull_request_reviewers: 'reviewers'
