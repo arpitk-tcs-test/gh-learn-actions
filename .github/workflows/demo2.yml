@@ -26,33 +26,22 @@ jobs:
           repository: arpitk-tcs-test/gh-second
           path: gh-second
           ref: dev
-      - name: Upload Yaml
-        uses: actions/upload-artifact@v3
-        with:
-          name: yaml
-          path: src/main/resources/application.yaml
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: Update yaml
-          title: yaml changes
-          body: NA
-          base: dev
-          labels: Na
-          branch: dev
-          delete-branch: false
-
-#      - name: Create pull request
-#        uses: paygoc6/action-pull-request-another-repo@v1.0.1
-#        env:
-#            API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
+#      - name: Upload Yaml
+#        uses: actions/upload-artifact@v3
 #        with:
-#            source_folder: 'src/main/resources/application.yaml'
-#            destination_repo: 'arpitk-tcs-test/gh-second'
-#            destination_folder: 'resources'
-#            destination_base_branch: 'master'
-#            destination_head_branch: 'dev'
-#            user_email: 'arpit.kumawat@tcs.com'
-#            user_name: 'arpitk-tcs-test'
-#            pull_request_reviewers: 'reviewers'
-#            pr_title: 'feat: the pr title'
+#          name: yaml
+#          path: src/main/resources/application.yaml
+      - name: Create pull request
+        uses: paygoc6/action-pull-request-another-repo@v1.0.1
+        env:
+            API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
+        with:
+            source_folder: 'src/main/resources/application.yaml'
+            destination_repo: 'arpitk-tcs-test/gh-second'
+            destination_folder: 'srs/main/resources'
+            destination_base_branch: 'master'
+            destination_head_branch: 'dev'
+            user_email: 'arpit.kumawat@tcs.com'
+            user_name: 'arpitk-tcs-test'
+            pull_request_reviewers: 'reviewers'
+            pr_title: 'feat: the pr title'
