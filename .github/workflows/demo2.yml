@@ -31,13 +31,11 @@ jobs:
         with:
           name: yaml
           path: src/main/resources/application.yaml
-      - name: Git pull
+      - name: get 2
         uses: actions/checkout@v3
         with:
           repository: arpitk-tcs-test/gh-second
-          path: gh-second
-          ref: dev
-        run: git pull origin master
+          token: ${{ secrets.TOKEN }}
       - name: Create pull request
         uses: paygoc6/action-pull-request-another-repo@v1.0.1
         env:
