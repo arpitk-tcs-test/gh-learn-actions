@@ -16,20 +16,19 @@ jobs:
         with:
             name: yaml
             path: src/main/resources/application.yaml
-  Job2:
-    name: Download yaml
+  Job3:
+    name: Chekout to another repo with main branch
     needs: Job1
     runs-on: ubuntu-latest
     steps:
-      - name: Download the release artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: yaml
-  Job3:
-    name: Chekout to another repo with main branch
-    needs: Job2
-    runs-on: ubuntu-latest
-    steps:
+      - name: Download yaml
+        needs: Job1
+        runs-on: ubuntu-latest
+        steps:
+          - name: Download the release artifact
+            uses: actions/download-artifact@v2
+            with:
+              name: yaml
       - name: checkout Upload Artifact to if Dev exist
         uses: actions/checkout@v3
         with:
