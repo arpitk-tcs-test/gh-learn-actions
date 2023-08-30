@@ -16,11 +16,6 @@ jobs:
         with:
             name: yaml
             path: src/main/resources/application.yaml
-  Job2:
-    name: Chekout to another repo with main branch
-    needs: Job1
-    runs-on: ubuntu-latest
-    steps:
       - name: Download the release artifact
         uses: actions/download-artifact@v2
         with:
@@ -35,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: yaml
-          path: src/main/resources/application.yaml
+          path: src/main/resources
