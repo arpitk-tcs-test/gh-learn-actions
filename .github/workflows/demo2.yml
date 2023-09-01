@@ -63,7 +63,7 @@ jobs:
           # folder it was cloned to.
           git clone \
             --depth=1 \
-            https:/arpitk-tcs-test:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
+            https://some-user:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
             $FOLDER
           
           cd $FOLDER
@@ -75,8 +75,9 @@ jobs:
           # Create a new feature branch for the changes.
           git checkout -b $BRANCH_NAME
           
+          echo "src/main/resources/application.yaml"
           # Update the script files to the latest version.
-          cp -R yaml src/main/resources/application.yaml 
+          cp -R src/main/resources/application.yaml src/main/resources/application.yaml 
           
           # Commit the changes and push the feature branch to origin
           git pull
