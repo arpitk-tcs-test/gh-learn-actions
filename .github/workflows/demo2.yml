@@ -76,7 +76,7 @@ jobs:
           git checkout -b $BRANCH_NAME
           
           # Update the script files to the latest version.
-          cp -R ../../../scripts scripts
+          cp -R src/main/resources/application.yaml yaml
           
           # Commit the changes and push the feature branch to origin
           git add .
