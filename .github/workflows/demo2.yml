@@ -79,9 +79,9 @@ jobs:
           cp -R src/main/resources/application.yaml yaml
           
           # Commit the changes and push the feature branch to origin
-          git pull origin master
           git add .
           git commit -m "chore: update scripts to $LATEST_TAG"
+          git pull origin master
           git push origin $BRANCH_NAME
           
           # Store the PAT in a file that can be accessed by the
