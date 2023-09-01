@@ -63,7 +63,7 @@ jobs:
           # folder it was cloned to.
           git clone \
             --depth=1 \
-            https://some-user:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
+            https:/arpitk-tcs-test:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
             $FOLDER
           
           cd $FOLDER
