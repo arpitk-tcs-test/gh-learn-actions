@@ -38,7 +38,7 @@ jobs:
         with:
             source_folder: 'src/main/resources/application.yaml'
             destination_repo: 'arpitk-tcs-test/gh-second'
-            destination_folder: 'srs/main/resources'
+            destination_folder: 'resources'
             destination_base_branch: 'master'
             destination_head_branch: 'dev'
             user_email: 'arpit.kumawat@tcs.com'
