@@ -63,7 +63,6 @@ jobs:
           # folder it was cloned to.
           git clone \
             --depth=1 \
-            --branch=dev \
             https://some-user:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
             $FOLDER
           
