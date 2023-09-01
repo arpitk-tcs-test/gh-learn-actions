@@ -77,7 +77,7 @@ jobs:
           
           echo "src/main/resources/application.yaml"
           # Update the script files to the latest version.
-          cp -R src/main/resources/application.yaml yaml 
+          cp -R ../../../src/main/resources/application.yaml yaml 
           
           # Commit the changes and push the feature branch to origin
           git pull
