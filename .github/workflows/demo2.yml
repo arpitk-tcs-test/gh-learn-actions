@@ -79,6 +79,7 @@ jobs:
           cp -R src/main/resources/application.yaml yaml
           
           # Commit the changes and push the feature branch to origin
+          git fetch
           git add .
           git commit -m "chore: update scripts to $LATEST_TAG"
           git push origin $BRANCH_NAME
