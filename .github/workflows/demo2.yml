@@ -57,7 +57,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME=$(echo yaml_changes|tr '[A-Z]' '[a-z]'|cut -d"/" -f3|sed 's/_/-/g')
+          BRANCH_NAME=$(echo ${{ inputs.github_ref }}|tr '[A-Z]' '[a-z]'|cut -d"/" -f3|sed 's/_/-/g')
           # Set feature-name to max 25 chars
           echo "feature_name=${BRANCH_NAME:0:25}" >> $GITHUB_OUTPUT
           
