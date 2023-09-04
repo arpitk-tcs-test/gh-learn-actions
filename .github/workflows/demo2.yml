@@ -65,7 +65,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME= yaml + ${{ steps.generate-uuid.outputs.uuid }}
+          BRANCH_NAME= "yaml" + ${{ steps.generate-uuid.outputs.uuid }}
 
           # Clone the remote repository and change working directory to the
           # folder it was cloned to.
