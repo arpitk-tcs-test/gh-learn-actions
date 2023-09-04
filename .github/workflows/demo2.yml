@@ -60,8 +60,10 @@ jobs:
           BRANCH_NAME=$(echo yaml_changes|tr '[A-Z]' '[a-z]'|cut -d"/" -f3|sed 's/_/-/g')
           # Set feature-name to max 25 chars
           echo "feature_name=${BRANCH_NAME:0:25}" >> $GITHUB_OUTPUT
-          # BRANCH_NAME="dev"
+          BRANCH_NAME=$GITHUB_OUTPUT
           
+          echo "$GITHUB_OUTPUT"
+          echo "$BRANCH_NAME"
           # Clone the remote repository and change working directory to the
           # folder it was cloned to.
           git clone \
