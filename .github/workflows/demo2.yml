@@ -31,6 +31,79 @@ jobs:
         with:
           name: yaml
           path: src/main/resources/application.yaml
+  setvars:
+    runs-on: [ ubuntu-latest ]
+    outputs:
+      IS_FEATURE_BRANCH: "yes"
+      OUTPUT: ${{ steps.out.outputs.output}}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+      - id: out
+        run: |
+          jq -cr '"output=\(.)"' pipeline-settings.json >> "$GITHUB_OUTPUT"
+
+    get-build-info:
+      uses: Inter-IKEA-Digital/rpm-ri-workflow/.github/workflows/get-build-info.yaml@master
+      needs:
+        - setvars
+      with:
+        github_ref: ${{ github.event.pull_request.head.ref }}
+        is_feature_branch: ${{ needs.setvars.outputs.IS_FEATURE_BRANCH }}
+        image_name: ${{ fromJson(needs.setvars.outputs.OUTPUT).IMAGE_NAME }}
+  Job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload Yaml
+        uses: actions/upload-artifact@v3
+        with:
+          name: yaml
+          path: src/main/resources/application.yaml
+      - name: Send pull-request
+        run: |
+          LATEST_TAG=$(git describe --tags --always --abbrev=0)
+          REPOSITORY="arpitk-tcs-test/gh-second"
+          FOLDER="bin/$REPOSITORY"
+          BRANCH_NAME="dev"
+
+          # Clone the remote repository and change working directory to the
+          # folder it was cloned to.
+          git clone \
+            --depth=1 \
+            https://some-user:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
+            $FOLDER
+
+          cd $FOLDER
+
+          # Setup the committers identity.
+          git config user.email "arpit.kumawat@tcs.com"
+          git config user.name "arpitk-tcs-test"
+
+          # Create a new feature branch for the changes.
+          git checkout -b $BRANCH_NAME
+
+          echo "src/main/resources/application.yaml"
+          # Update the script files to the latest version.
+          cp -R ../../../src/main/resources/application.yaml yaml 
+
+          # Commit the changes and push the feature branch to origin
+          git pull
+          git add .
+          git commit -m "chore: update scripts to $LATEST_TAG"
+          git push -f origin $BRANCH_NAME
+
+          # Store the PAT in a file that can be accessed by the
+          # GitHub CLI.
+          echo "${{ secrets.TOKEN }}" > token.txt
+
+          # Authorize GitHub CLI for the current repository and
+          # create a pull-requests containing the updates.
+          gh auth login --with-token < token.txt
+          gh pr create \
+            --body "" \
+            --title "Update Yaml from other repo to $LATEST_TAG" \
+            --head "$BRANCH_NAME" \
+            --base "master"
 #      - name: Create pull request
 #        uses: paygoc6/action-pull-request-another-repo@v1.0.1
 #        env:
@@ -52,48 +125,3 @@ jobs:
 #          ref: ${{github.event.pull_request.head.ref}}
 #          repository: ${{github.event.pull_request.head.repo.full_name}}
 #          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Send pull-request
-        run: |
-          LATEST_TAG=$(git describe --tags --always --abbrev=0)
-          REPOSITORY="arpitk-tcs-test/gh-second"
-          FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME="dev"
-          
-          # Clone the remote repository and change working directory to the
-          # folder it was cloned to.
-          git clone \
-            --depth=1 \
-            https://some-user:${{ secrets.TOKEN }}@github.com/$REPOSITORY \
-            $FOLDER
-          
-          cd $FOLDER
-          
-          # Setup the committers identity.
-          git config user.email "arpit.kumawat@tcs.com"
-          git config user.name "arpitk-tcs-test"
-          
-          # Create a new feature branch for the changes.
-          git checkout -b $BRANCH_NAME
-          
-          echo "src/main/resources/application.yaml"
-          # Update the script files to the latest version.
-          cp -R ../../../src/main/resources/application.yaml yaml 
-          
-          # Commit the changes and push the feature branch to origin
-          git pull
-          git add .
-          git commit -m "chore: update scripts to $LATEST_TAG"
-          git push -f origin $BRANCH_NAME
-          
-          # Store the PAT in a file that can be accessed by the
-          # GitHub CLI.
-          echo "${{ secrets.TOKEN }}" > token.txt
-          
-          # Authorize GitHub CLI for the current repository and
-          # create a pull-requests containing the updates.
-          gh auth login --with-token < token.txt
-          gh pr create \
-            --body "" \
-            --title "Update Yaml from other repo to $LATEST_TAG" \
-            --head "$BRANCH_NAME" \
-            --base "master"
