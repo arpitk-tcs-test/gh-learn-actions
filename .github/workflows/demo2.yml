@@ -43,14 +43,14 @@ jobs:
         run: |
           jq -cr '"output=\(.)"' pipeline-settings.json >> "$GITHUB_OUTPUT"
 
-    get-build-info:
-      uses: Inter-IKEA-Digital/rpm-ri-workflow/.github/workflows/get-build-info.yaml@master
-      needs:
-        - setvars
-      with:
-        github_ref: ${{ github.event.pull_request.head.ref }}
-        is_feature_branch: ${{ needs.setvars.outputs.IS_FEATURE_BRANCH }}
-        image_name: ${{ fromJson(needs.setvars.outputs.OUTPUT).IMAGE_NAME }}
+  get-build-info:
+    uses: Inter-IKEA-Digital/rpm-ri-workflow/.github/workflows/get-build-info.yaml@master
+    needs:
+      - setvars
+    with:
+      github_ref: ${{ github.event.pull_request.head.ref }}
+      is_feature_branch: ${{ needs.setvars.outputs.IS_FEATURE_BRANCH }}
+      image_name: ${{ fromJson(needs.setvars.outputs.OUTPUT).IMAGE_NAME }}
   Job2:
     runs-on: ubuntu-latest
     steps:
