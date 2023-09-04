@@ -60,9 +60,7 @@ jobs:
           BRANCH_NAME=$(echo ${{ inputs.github_ref }}|tr '[A-Z]' '[a-z]'|cut -d"/" -f3|sed 's/_/-/g')
           # Set feature-name to max 25 chars
           echo "feature_name=${BRANCH_NAME:0:25}" >> $GITHUB_OUTPUT
-          
-          echo "$GITHUB_OUTPUT"
-          echo "$BRANCH_NAME"
+
           # Clone the remote repository and change working directory to the
           # folder it was cloned to.
           git clone \
@@ -77,7 +75,7 @@ jobs:
           git config user.name "arpitk-tcs-test"
           
           # Create a new feature branch for the changes.
-          git checkout -b $BRANCH_NAME
+          git checkout -b '#$BRANCH_NAME'
           
           echo "src/main/resources/application.yaml"
           # Update the script files to the latest version.
