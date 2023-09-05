@@ -62,30 +62,30 @@ jobs:
 #          ref: ${{github.event.pull_request.head.ref}}
 #          repository: ${{github.event.pull_request.head.repo.full_name}}
 #          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0
+#      - name: 'Get Previous tag'
+#        id: previoustag
+#        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+#        with:
+#          fallback: 1.0.0
       - name: Set outputs
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
-      - id: define_image_tag
-        name: Define image tag
-        env:
-          TAG: ${{ steps.previoustag.outputs.tag }}
-        run: |
-          # Strip v in tag e.g v1.0.0 -> 1.0.0
-          VERSION=$(echo $TAG|tr -d 'v')
-          echo "tag=${VERSION}|${{ steps.vars.outputs.sha_short }}" >> $GITHUB_OUTPUT
+#      - id: define_image_tag
+#        name: Define image tag
+#        env:
+#          TAG: ${{ steps.previoustag.outputs.tag }}
+#        run: |
+#          # Strip v in tag e.g v1.0.0 -> 1.0.0
+#          VERSION=$(echo $TAG|tr -d 'v')
+#          echo "tag=${VERSION}|${{ steps.vars.outputs.sha_short }}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME=${{ steps.vars.outputs.sha_short }}
+          BRANCH_NAME=echo( yamlChanges| ${{ steps.vars.outputs.sha_short }})
 
 
           # Clone the remote repository and change working directory to the
