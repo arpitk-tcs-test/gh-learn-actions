@@ -85,7 +85,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME=echo( yamlChanges| ${{ steps.vars.outputs.sha_short }})
+          BRANCH_NAME=$(echo yamlChanges| ${{ steps.vars.outputs.sha_short }})
 
 
           # Clone the remote repository and change working directory to the
