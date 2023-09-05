@@ -64,7 +64,8 @@ jobs:
         run: |
           # Strip v in tag e.g v1.0.0 -> 1.0.0
           VERSION=$(echo $TAG|tr -d 'v')
-          echo "tag=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
+          #echo "tag=${VERSION}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
