@@ -1,5 +1,15 @@
 name: CI
 on:
+  workflow_call:
+    inputs:
+      github_ref:
+        required: true
+        type: string
+        description: the name of the branch to get the name from
+      is_feature_branch:
+        required: true
+        type: string
+        description: if branch should be preapended in the name
   push:
     branches:
       - dev
@@ -64,8 +74,10 @@ jobs:
         run: |
           # Strip v in tag e.g v1.0.0 -> 1.0.0
           VERSION=$(echo $TAG|tr -d 'v')
-          echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
-          #echo "tag=${VERSION}" >> $GITHUB_OUTPUT
+          if [[ ${{ inputs.is_feature_branch }} == "yes" ]]; then
+            echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
+          # echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
+          # echo "tag=${VERSION}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
