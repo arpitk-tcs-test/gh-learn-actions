@@ -74,8 +74,8 @@ jobs:
         run: |
           # Strip v in tag e.g v1.0.0 -> 1.0.0
           VERSION=$(echo $TAG|tr -d 'v')
-          GITHUB_SHA=$(echo git rev-parse --short HEAD)
-          echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)"
+          echo "tag=${VERSION}-${sha_short:0:5}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
