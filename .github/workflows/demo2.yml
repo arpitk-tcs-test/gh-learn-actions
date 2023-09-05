@@ -74,18 +74,12 @@ jobs:
         run: |
           # Strip v in tag e.g v1.0.0 -> 1.0.0
           VERSION=$(echo $TAG|tr -d 'v')
-          if [[ ${{ inputs.is_feature_branch }} == "yes" ]]; then
-            echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
-          # echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
-          # echo "tag=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          # BRANCH_NAME=$(echo ${{ steps.generate-uuid.outputs.uuid }})
-          # BRANCH_NAME=dev
-          # BRANCH_NAME=$(echo ${{ inputs.github_ref }}|tr '[A-Z]' '[a-z]'|cut -d"/" -f3|sed 's/_/-/g')
           BRANCH_NAME=${{ steps.previoustag.outputs.tag }}
 
 
