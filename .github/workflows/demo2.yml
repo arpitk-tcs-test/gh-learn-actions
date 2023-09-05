@@ -57,7 +57,6 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
           fallback: 1.0.0
-
       - id: define_image_tag
         name: Define image tag
         env:
@@ -65,12 +64,7 @@ jobs:
         run: |
           # Strip v in tag e.g v1.0.0 -> 1.0.0
           VERSION=$(echo $TAG|tr -d 'v')
-          # For development branches, add SHA as build identifier
-          if [[ ${{ inputs.is_feature_branch }} == "yes" ]]; then
-            echo "tag=${VERSION}-${GITHUB_SHA:0:5}" >> $GITHUB_OUTPUT
-          else
-            echo "tag=${VERSION}" >> $GITHUB_OUTPUT
-          fi
+          echo "tag=${VERSION}" >> $GITHUB_OUTPUT
       - name: Send pull-request
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
