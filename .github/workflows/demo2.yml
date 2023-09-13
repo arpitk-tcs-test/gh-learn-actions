@@ -20,38 +20,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: yaml
-#      - name: checkout Upload Artifact to if Dev exist
-#        uses: actions/checkout@v3
-#        with:
-#          repository: arpitk-tcs-test/gh-second
-#          path: gh-second
-#          ref: dev
       - name: Upload Yaml
         uses: actions/upload-artifact@v3
         with:
           name: yaml
           path: src/main/resources/application.yaml
-#      - name: Create pull request
-#        uses: paygoc6/action-pull-request-another-repo@v1.0.1
-#        env:
-#            API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
-#        with:
-#            source_folder: 'src/main/resources/application.yaml'
-#            destination_repo: 'arpitk-tcs-test/gh-second'
-#            destination_folder: 'resources'
-#            destination_base_branch: 'master'
-#            destination_head_branch: 'dev'
-#            user_email: 'arpit.kumawat@tcs.com'
-#            user_name: 'arpitk-tcs-test'
-#            pull_request_reviewers: 'reviewers'
-#            pr_title: 'feat: the pr title'
-#      - name: Checkout code
-#        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
-#        with:
-#          fetch-depth: 0 # Checkout everything to get access to the tags
-#          ref: ${{github.event.pull_request.head.ref}}
-#          repository: ${{github.event.pull_request.head.repo.full_name}}
-#          token: ${{ secrets.GITHUB_TOKEN }}
 #      - name: 'Get Previous tag'
 #        id: previoustag
 #        uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -60,6 +33,9 @@ jobs:
       - name: Set outputs
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Set outputs
+        id: vars2
+        run: echo "sha_short2=$( git show -s --format='%s')" >> $GITHUB_OUTPUT
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
 #      - id: define_image_tag
@@ -75,7 +51,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME=${{ steps.vars.outputs.sha_short }}
+          BRANCH_NAME=${{ steps.vars2.outputs.sha_short2 }}
 
 
           # Clone the remote repository and change working directory to the
