@@ -89,6 +89,6 @@ jobs:
           gh auth login --with-token < token.txt
           gh pr create \
             --body "" \
-            --title "Update Yaml from other repo to $LATEST_TAG" \
+            --title "Update Yaml from ${{ steps.vars2.outputs.sha_short2 }} repo to $LATEST_TAG" \
             --head "$BRANCH_NAME" \
             --base "master"
