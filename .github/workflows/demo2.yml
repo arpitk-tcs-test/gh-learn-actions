@@ -35,7 +35,7 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Set outputs
         id: vars2
-        run: echo "sha_short2=$( git show -s --format='%s')" >> $GITHUB_OUTPUT
+        run: echo "sha_short2=$( git show -s --format='%h_%s)" >> $GITHUB_OUTPUT
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
 #      - id: define_image_tag
