@@ -50,8 +50,10 @@ jobs:
         run: |
           LATEST_TAG=$(git describe --tags --always --abbrev=0)
           REPOSITORY="arpitk-tcs-test/gh-second"
+          RepoName="gh-second"
           FOLDER="bin/$REPOSITORY"
-          BRANCH_NAME=$REPOSITORY+"-"+${{ steps.vars2.outputs.sha_short2 }}
+          BRANCH_NAME=$RepoName"-"${{ steps.vars2.outputs.sha_short2 }}
+          Branch=$GITHUB_URL/${GITHUB_REPOSITORY}/releases/tag/${RELEASE_TAG}
 
 
           # Clone the remote repository and change working directory to the
