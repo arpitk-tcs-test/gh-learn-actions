@@ -44,7 +44,7 @@ jobs:
             Remote_Url=$(git config --get remote.origin.url)
             Commit_id=$(git log --format="%H" -n 1)
             Commit_Link=$Remote_Url"/commit/"$Commit_id
-            echo "Commit_Link=$Remote_Url"/commit/"$Commit_id )" >> $GITHUB_OUTPUT
+            echo "Commit_Link=$Remote_Url"/commit/"$Commit_id" >> $GITHUB_OUTPUT
       - name: Check Commit URL
         run: echo ${{ steps.commit_Url.outputs.Commit_Link }}
 #      - id: define_image_tag
