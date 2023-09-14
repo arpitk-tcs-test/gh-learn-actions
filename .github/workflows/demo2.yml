@@ -38,6 +38,15 @@ jobs:
         run: echo "sha_short2=$( git show -s --format='%s-%h' )" >> $GITHUB_OUTPUT
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
+      - name: Get Commit URL
+        id: commit_Url
+        run: |
+            Remote_Url=$(git config --get remote.origin.url)
+            Commit_id=$(git log --format="%H" -n 1)
+            Commit_Link=$Remote_Url"/commit/"$Commit_id
+            echo "Commit_Link=$Remote_Url"/commit/"$Commit_id )" >> $GITHUB_OUTPUT
+      - name: Check Commit URL
+        run: echo ${{ steps.commit_Url.outputs.Commit_Link }}
 #      - id: define_image_tag
 #        name: Define image tag
 #        env:
@@ -53,8 +62,6 @@ jobs:
           RepoName="gh-second"
           FOLDER="bin/$REPOSITORY"
           BRANCH_NAME=$RepoName"-"${{ steps.vars2.outputs.sha_short2 }}
-          Branch=$GITHUB_URL/${GITHUB_REPOSITORY}/releases/tag/${RELEASE_TAG}
-
 
           # Clone the remote repository and change working directory to the
           # folder it was cloned to.
@@ -90,7 +97,7 @@ jobs:
           # create a pull-requests containing the updates.
           gh auth login --with-token < token.txt
           gh pr create \
-            --body "" \
+            --body "Updated Yaml from ${{ steps.commit_Url.outputs.Commit_Link }} " \
             --title "Update Yaml from ${{ steps.vars2.outputs.sha_short2 }} repo to $LATEST_TAG" \
             --head "$BRANCH_NAME" \
             --base "master"
